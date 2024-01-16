@@ -1,0 +1,75 @@
+import time
+import cv2
+import keyboard as keyboard
+import numpy as np
+import pyautogui
+
+
+# Space bar function
+def space_bar_press():
+    pyautogui.press("space")
+    return
+
+
+def up_press():
+    # time.sleep(2)
+    pyautogui.press("up")
+    return
+
+
+def down_press():
+    pyautogui.press("down")
+    return
+
+
+pyautogui.moveTo(1080, 1080, 2)
+pyautogui.click()
+space_bar_press()
+
+
+
+# Convert image to gray scale to be easily processed
+while True:
+    img = pyautogui.screenshot()
+    display_screen_pixel = img.getpixel((1003, 319))
+    cactus_location = pyautogui.locateOnScreen("cactus.jpg", confidence=0.1, grayscale=True)
+    cactus_point = pyautogui.center(cactus_location)
+
+    # Possible positions for cactus
+    up_front1 = img.getpixel((245, 639))
+    # print(up_front1)
+    up_front2 = img.getpixel((323, 639))
+    up_front3 = img.getpixel((411, 639))
+    up_front4 = img.getpixel((469, 639))
+
+    up_above1 = img.getpixel((237, 578))
+    up_above2 = img.getpixel((337, 576))
+    up_above3 = img.getpixel((419, 577))
+    up_above4 = img.getpixel((531, 575))
+
+    if display_screen_pixel[0] == 255:
+        if up_front1[0] == 83 or cactus_point == (245, 639):
+            up_press()
+            print("enemy1")
+            time.sleep(0.001)
+        elif up_front2[0] == 83 or cactus_point == (323, 639):
+            up_press()
+            print("enemy2")
+            time.sleep(0.001)
+        elif up_front3[0] == 83 or cactus_point == (411, 639):
+            up_press()
+            print("enemy3")
+            time.sleep(0.001)
+        elif up_front4[0] == 83 or cactus_point == (469, 639):
+            up_press()
+            print("enemy4")
+            # time.sleep(0.001)
+
+        if keyboard.is_pressed("s"):
+            break
+        else:
+            pass
+
+
+
+
